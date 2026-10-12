@@ -1,4 +1,4 @@
-import app from '../server';
+import app from '../server/app';
 
 export default function handler(req: any, res: any) {
   // Normalize path if Vercel passes path without /api prefix

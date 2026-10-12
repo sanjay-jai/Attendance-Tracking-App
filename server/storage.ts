@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Employee, AttendanceRecord, SheetConfig, OfficeLocationConfig } from '../src/types';
+import seedStoreData from '../data/attendance-store.json';
 
 export interface SmsGatewaySettings {
   fast2SmsApiKey?: string;
@@ -27,18 +28,17 @@ interface DatabaseData {
 const isVercel = Boolean(process.env.VERCEL);
 const DATA_DIR = isVercel ? path.resolve('/tmp', 'data') : path.resolve(process.cwd(), 'data');
 const DATA_FILE = path.join(DATA_DIR, 'attendance-store.json');
-const SEED_FILE = path.resolve(process.cwd(), 'data', 'attendance-store.json');
 
 const DEFAULT_INITIAL_DATA: DatabaseData = {
-  config: {
+  config: (seedStoreData as any).config || {
     sheetId: '17_NObNlnC-AB2QDM8XGWe9B-Sg3HhZMySNuW5el3nOk',
     appsScriptUrl: '',
     lastSyncTime: null,
     autoSyncEnabled: true,
     totalCapacity: 250,
   },
-  smsGateway: {},
-  locationConfig: {
+  smsGateway: (seedStoreData as any).smsGateway || {},
+  locationConfig: (seedStoreData as any).locationConfig || {
     mapsUrl: 'https://maps.app.goo.gl/uYd8xLuEXXurUwwB7?g_st=aw',
     latitude: 8.816194,
     longitude: 78.154972,
@@ -46,7 +46,7 @@ const DEFAULT_INITIAL_DATA: DatabaseData = {
     locationName: 'Designated Workplace (8.816194, 78.154972)',
     enforceLocation: true,
   },
-  employees: [
+  employees: (seedStoreData as any).employees || [
     {
       id: 'EMP-001',
       phone: '8056799104',
@@ -57,7 +57,7 @@ const DEFAULT_INITIAL_DATA: DatabaseData = {
       createdAt: new Date().toISOString(),
     },
   ],
-  attendance: [],
+  attendance: (seedStoreData as any).attendance || [],
 };
 
 class Storage {
@@ -69,21 +69,8 @@ class Storage {
 
   private load(): DatabaseData {
     try {
-      if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
-      }
-
-      if (isVercel && !fs.existsSync(DATA_FILE) && fs.existsSync(SEED_FILE)) {
-        try {
-          fs.copyFileSync(SEED_FILE, DATA_FILE);
-        } catch (e) {
-          console.warn('Could not copy seed file to tmp:', e);
-        }
-      }
-
-      const fileToRead = fs.existsSync(DATA_FILE) ? DATA_FILE : (fs.existsSync(SEED_FILE) ? SEED_FILE : null);
-      if (fileToRead) {
-        const raw = fs.readFileSync(fileToRead, 'utf-8');
+      if (fs.existsSync(DATA_FILE)) {
+        const raw = fs.readFileSync(DATA_FILE, 'utf-8');
         const parsed = JSON.parse(raw);
         return {
           employees: parsed.employees || DEFAULT_INITIAL_DATA.employees,
@@ -98,9 +85,8 @@ class Storage {
         };
       }
     } catch (err) {
-      console.error('Error reading storage, initializing with defaults', err);
+      console.warn('Notice: Reading from seed database state', err);
     }
-    this.saveData(DEFAULT_INITIAL_DATA);
     return DEFAULT_INITIAL_DATA;
   }
 
@@ -111,7 +97,8 @@ class Storage {
       }
       fs.writeFileSync(DATA_FILE, JSON.stringify(dataToSave, null, 2), 'utf-8');
     } catch (err) {
-      console.error('Failed to save data to disk:', err);
+      // In serverless environments, file write failure is non-fatal because memory holds current state
+      console.warn('Storage write warning:', (err as any)?.message || err);
     }
   }
 
