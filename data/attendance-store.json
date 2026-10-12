@@ -1,0 +1,179 @@
+{
+  "employees": [
+    {
+      "id": "EMP-001",
+      "phone": "9876543210",
+      "name": "Primary Employee",
+      "department": "Operations",
+      "role": "admin",
+      "active": true,
+      "createdAt": "2026-10-11T08:10:56.853Z"
+    },
+    {
+      "id": "EMP-001",
+      "phone": "8056799104",
+      "name": "Sanjai",
+      "department": "General Staff",
+      "role": "employee",
+      "active": true,
+      "createdAt": "2026-10-11T08:13:48.468Z",
+      "pin": "6106",
+      "isBlocked": false
+    },
+    {
+      "id": "EMP-002",
+      "phone": "8015475902",
+      "name": "Lakshu",
+      "department": "Staff",
+      "role": "employee",
+      "active": true,
+      "createdAt": "2026-10-11T08:24:06.379Z",
+      "pin": "4458",
+      "isBlocked": false
+    },
+    {
+      "id": "EMP-003",
+      "phone": "6374290958",
+      "name": "amma",
+      "department": "Staff",
+      "role": "employee",
+      "active": true,
+      "createdAt": "2026-10-11T09:05:34.153Z",
+      "pin": "1367",
+      "isBlocked": false
+    }
+  ],
+  "attendance": [
+    {
+      "id": "02fa4b01-c935-43ad-a82a-a94c6c14b909",
+      "employeeId": "EMP-003",
+      "phone": "6374290958",
+      "name": "amma",
+      "department": "Staff",
+      "date": "2026-10-11",
+      "clockIn": {
+        "time": "2026-10-11T10:18:10.425Z",
+        "formatted": "10:18:10 AM",
+        "note": "On-site at workplace",
+        "ip": "127.0.0.1",
+        "device": "curl/7.88.1",
+        "latitude": 8.816194,
+        "longitude": 78.154972,
+        "distanceMeters": 0,
+        "locationVerified": true
+      },
+      "clockOut": null,
+      "durationMinutes": 0,
+      "durationFormatted": "0h 0m",
+      "status": "clocked_in",
+      "syncedToGoogleSheet": false,
+      "syncedAt": null,
+      "createdAt": "2026-10-11T10:18:10.425Z",
+      "updatedAt": "2026-10-11T10:18:10.425Z"
+    },
+    {
+      "id": "76f76cf2-94ad-4511-8ed3-25261dd4c628",
+      "employeeId": "EMP-002",
+      "phone": "8015475902",
+      "name": "Lakshu",
+      "department": "Staff",
+      "date": "2026-10-11",
+      "clockIn": {
+        "time": "2026-10-11T09:45:54.073Z",
+        "formatted": "09:45:54 AM",
+        "note": "On-site at office",
+        "ip": "127.0.0.1",
+        "device": "curl/7.88.1",
+        "latitude": 11.0168,
+        "longitude": 76.9558,
+        "distanceMeters": 0,
+        "locationVerified": true
+      },
+      "clockOut": null,
+      "durationMinutes": 0,
+      "durationFormatted": "0h 0m",
+      "status": "clocked_in",
+      "syncedToGoogleSheet": false,
+      "syncedAt": null,
+      "createdAt": "2026-10-11T09:45:54.073Z",
+      "updatedAt": "2026-10-11T09:45:54.074Z"
+    },
+    {
+      "id": "c0ee288b-01a6-4148-9c9b-2779e15dc35b",
+      "employeeId": "EMP-002",
+      "phone": "8056799104",
+      "name": "Employee (9104)",
+      "department": "General Staff",
+      "date": "2026-10-11",
+      "clockIn": {
+        "time": "2026-10-11T08:14:05.532Z",
+        "formatted": "08:14:05 AM",
+        "note": "",
+        "ip": "2401:4900:927f:624a:175:8b1e:dc4c:cfe3, 169.254.169.126",
+        "device": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
+      },
+      "clockOut": null,
+      "durationMinutes": 0,
+      "durationFormatted": "0h 0m",
+      "status": "clocked_in",
+      "syncedToGoogleSheet": false,
+      "syncedAt": null,
+      "createdAt": "2026-10-11T08:14:05.532Z",
+      "updatedAt": "2026-10-11T08:14:05.532Z"
+    },
+    {
+      "id": "daf0935a-28f7-4fda-a0f2-2b418c7b1544",
+      "employeeId": "EMP-001",
+      "phone": "9876543210",
+      "name": "Primary Employee",
+      "department": "Operations",
+      "date": "2026-10-11",
+      "clockIn": {
+        "time": "2026-10-11T08:11:26.248Z",
+        "formatted": "08:11:26 AM",
+        "note": "Morning arrival",
+        "ip": "127.0.0.1",
+        "device": "curl/7.88.1"
+      },
+      "clockOut": {
+        "time": "2026-10-11T08:11:35.832Z",
+        "formatted": "08:11:35 AM",
+        "note": "Shift end",
+        "ip": "127.0.0.1",
+        "device": "curl/7.88.1"
+      },
+      "durationMinutes": 1,
+      "durationFormatted": "0h 1m",
+      "status": "completed",
+      "syncedToGoogleSheet": false,
+      "syncedAt": null,
+      "createdAt": "2026-10-11T08:11:26.248Z",
+      "updatedAt": "2026-10-11T08:11:35.832Z"
+    }
+  ],
+  "config": {
+    "sheetId": "17_NObNlnC-AB2QDM8XGWe9B-Sg3HhZMySNuW5el3nOk",
+    "appsScriptUrl": "",
+    "lastSyncTime": null,
+    "autoSyncEnabled": true,
+    "totalCapacity": 250
+  },
+  "smsGateway": {
+    "lastDispatched": {
+      "phone": "8056799104",
+      "code": "137953",
+      "provider": "Fast2SMS (Cellular)",
+      "status": "Delivered to Cellular Network",
+      "time": "2026-10-11T09:11:36.227Z"
+    },
+    "fast2SmsApiKey": "wbc0ERBWsxr3VFjMT9dL5KSNOQuhlfDU7zP8pZok1A4imXJH2Iuvlqtb5N1oA2Frg40efpiYcMUXOBDL"
+  },
+  "locationConfig": {
+    "mapsUrl": "https://maps.app.goo.gl/uYd8xLuEXXurUwwB7?g_st=aw",
+    "latitude": 8.816194,
+    "longitude": 78.154972,
+    "radiusMeters": 150,
+    "locationName": "Designated Workplace (8.816194, 78.154972)",
+    "enforceLocation": true
+  }
+}
