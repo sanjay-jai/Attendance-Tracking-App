@@ -24,8 +24,10 @@ interface DatabaseData {
   locationConfig: OfficeLocationConfig;
 }
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
+const isVercel = Boolean(process.env.VERCEL);
+const DATA_DIR = isVercel ? path.resolve('/tmp', 'data') : path.resolve(process.cwd(), 'data');
 const DATA_FILE = path.join(DATA_DIR, 'attendance-store.json');
+const SEED_FILE = path.resolve(process.cwd(), 'data', 'attendance-store.json');
 
 const DEFAULT_INITIAL_DATA: DatabaseData = {
   config: {
@@ -70,8 +72,18 @@ class Storage {
       if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
-      if (fs.existsSync(DATA_FILE)) {
-        const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+
+      if (isVercel && !fs.existsSync(DATA_FILE) && fs.existsSync(SEED_FILE)) {
+        try {
+          fs.copyFileSync(SEED_FILE, DATA_FILE);
+        } catch (e) {
+          console.warn('Could not copy seed file to tmp:', e);
+        }
+      }
+
+      const fileToRead = fs.existsSync(DATA_FILE) ? DATA_FILE : (fs.existsSync(SEED_FILE) ? SEED_FILE : null);
+      if (fileToRead) {
+        const raw = fs.readFileSync(fileToRead, 'utf-8');
         const parsed = JSON.parse(raw);
         return {
           employees: parsed.employees || DEFAULT_INITIAL_DATA.employees,
